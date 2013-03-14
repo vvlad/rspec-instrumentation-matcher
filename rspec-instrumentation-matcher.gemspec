@@ -9,8 +9,8 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Vlad Verestiuc"]
   gem.email         = ["vlad.verestiuc@me.com"]
   gem.description   = %q{Rspec matcher for ActiveSupport::Notifications}
-  gem.summary       = %q{Rspec matcher for ActiveSupport::Notifications}
-  gem.homepage      = ""
+  gem.summary       = %q{Support for spec-ing ActiveSupport::Notifications.instrument calls}
+  gem.homepage      = "https://github.com/vvlad/rspec-instrumentation-matcher"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
