@@ -1,4 +1,5 @@
-# A rspec matcher for ActiveSupport::Notifications
+rspec-instrumentation-matcher
+=============================
 
 
 ## Installation
