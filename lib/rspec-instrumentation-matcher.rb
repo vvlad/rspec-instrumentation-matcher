@@ -115,6 +115,7 @@ module RSpec
         end
 
         def with?
+          return true unless @with
           !@payload.nil? and delta_payload.size == 0
         end
 
