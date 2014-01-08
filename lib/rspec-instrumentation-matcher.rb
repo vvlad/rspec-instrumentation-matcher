@@ -95,12 +95,12 @@ module RSpec
 
         def at_least?
           return true unless @at_least
-          @received <= @at_least
+          @received >= @at_least
         end
 
         def at_most?
           return true unless @at_most
-          @received >= @at_most
+          @received <= @at_most
         end
 
         def times?
