@@ -1,5 +1,5 @@
 require "rspec-instrumentation-matcher/version"
-
+require 'active_support/notifications'
 module RSpec
   module Instrumentation
     module Matcher
@@ -13,6 +13,10 @@ module RSpec
           @payload = nil
           @received = 0
           @at_least = 1
+        end
+
+        def description
+          "instrument #{@subject} #{expectation_message}"
         end
 
         def supports_block_expectations?
@@ -62,6 +66,7 @@ module RSpec
 
         def at_most(value)
           @at_most = value
+          @at_least = nil
           self
         end
 
@@ -76,6 +81,7 @@ module RSpec
 
 
         def times(value)
+          @at_least = nil
           @times = value
           self
         end
@@ -133,6 +139,16 @@ module RSpec
           end
         end
 
+        def expectation_message
+          message = ""
+          message << "at least #{count @at_least}" unless @at_least.nil?
+          message << "at most #{count @at_most}" unless @at_most.nil?
+          message << "exactly #{count @times}" unless @times.nil?
+          if @with
+            message << " with payload #{@payload.inspect}"
+          end
+          message
+        end
 
       end
     end
