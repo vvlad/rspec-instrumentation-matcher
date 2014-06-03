@@ -15,6 +15,10 @@ module RSpec
           @at_least = 1
         end
 
+        def supports_block_expectations?
+          true
+        end
+
         def matches?(event_proc)
           raise_block_syntax_error if block_given?
 
