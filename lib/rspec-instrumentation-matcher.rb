@@ -26,14 +26,13 @@ module RSpec
         def matches?(event_proc)
           raise_block_syntax_error if block_given?
 
-          subscription = ActiveSupport::Notifications.subscribe @subject do |name, start, finish, id, _payload|
-            @payload = _payload
+          callback = lambda do |name, start, finish, id, payload|
+            @payload = payload
             @received += 1
           end
-
-          event_proc.call
-
-          ActiveSupport::Notifications.unsubscribe(subscription)
+          ActiveSupport::Notifications.subscribed(callback, @subject) do
+            event_proc.call
+          end
 
           times? and at_least? and at_most? and with?
 
