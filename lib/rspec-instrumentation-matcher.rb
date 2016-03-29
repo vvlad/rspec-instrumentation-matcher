@@ -39,8 +39,12 @@ module RSpec
 
         end
 
-        def failure_message
-          message = "Expected #{@subject} to be instrumented"
+        def negative_failure_message
+          failure_message(true)
+        end
+
+        def failure_message(negative = false)
+          message = "Expected #{@subject} #{"not " if negative}to be instrumented"
           message << " at least #{count @at_least}" unless at_least?
           message << " at most #{count @at_most}" unless at_most?
           message << " exactly #{count @times}" unless times?
