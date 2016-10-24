@@ -20,6 +20,7 @@ Or install it yourself as:
 
     expect{ subject.do_something }.to instrument("key").with( foo: :bar )
     expect{ subject.do_something }.to instrument("key").once
+    expect{ subject.do_something }.to instrument("key").never
     expect{ subject.do_something }.to instrument("key").at_least(1)
     expect{ subject.do_something }.to instrument("key").at_most(10)
     expect{ subject.do_something }.to instrument("key").times(5)
