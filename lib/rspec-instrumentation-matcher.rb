@@ -77,6 +77,10 @@ module RSpec
           times(1)
         end
 
+        def twice
+          times(2)
+        end
+
         def never
           times(0)
         end
