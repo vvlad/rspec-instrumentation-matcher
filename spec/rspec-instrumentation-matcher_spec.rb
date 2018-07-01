@@ -11,6 +11,7 @@ describe RSpec::Instrumentation::Matcher do
   let(:notification) { 'a notification' }
 
   specify { expect { event(notification) }.to instrument(notification).once }
+  specify { expect { 2.times { event(notification) } }.to instrument(notification).twice }
   specify { expect { 2.times { event(notification) } }.not_to instrument(notification).never }
   specify { expect { 2.times { event(notification) } }.to instrument(notification).at_least(1) }
   specify { expect { 2.times { event(notification) } }.to instrument(notification).at_most(2) }
