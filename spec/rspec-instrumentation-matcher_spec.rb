@@ -15,7 +15,17 @@ describe RSpec::Instrumentation::Matcher do
   specify { expect { 2.times { event(notification) } }.not_to instrument(notification).never }
   specify { expect { 2.times { event(notification) } }.to instrument(notification).at_least(1) }
   specify { expect { 2.times { event(notification) } }.to instrument(notification).at_most(2) }
-  specify { expect { event(notification,{ test_payload: true }) }.to instrument(notification).with(test_payload: true) }
+
+  # test with
+  specify { expect { event(notification, { test_payload: true }) }.to instrument(notification).with(test_payload: true) }
+  specify { expect { event(notification, { test_payload: true }) }.to instrument(notification).with(anything) }
+  specify { expect { event(notification) }.to instrument(notification).with(anything) }
+
+  specify do
+    expect {
+      event(notification,{ test_payload: true, asd: true })
+    }.to instrument(notification).with(hash_including(test_payload: true))
+  end
 
   context 'when the instrumented block raises an exception' do
     it 'still unsubscribes the spy subscription' do

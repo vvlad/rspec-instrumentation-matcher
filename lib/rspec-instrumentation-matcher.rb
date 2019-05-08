@@ -7,6 +7,8 @@ module RSpec
         InstrumentMatcher.new(subject)
       end
       class InstrumentMatcher
+        include RSpec::Matchers::Composable
+
         def initialize(subject)
           @subject = subject
           @payload = nil
@@ -121,14 +123,13 @@ module RSpec
         end
 
         def delta_payload
-          unmatched = @payload_expectation.reject do |key, value|
-            matched_value?(value, @payload[key]) if @payload.key? key
-          end
+          return true if values_match?(@payload_expectation, @payload)
+          @payload.match(@payload_expectation) if @payload.respond_to?(:match)
         end
 
         def with?
           return true unless @with
-          !@payload.nil? && delta_payload.empty?
+          !@payload.nil? && delta_payload
         end
 
         def matched_value?(expected, actual)
