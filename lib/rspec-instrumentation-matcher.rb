@@ -154,6 +154,7 @@ module RSpec
   end
 end
 
+require 'rspec/matchers'
 module RSpec::Matchers
   include RSpec::Instrumentation::Matcher
 end
