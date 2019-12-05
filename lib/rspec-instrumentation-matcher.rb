@@ -1,5 +1,6 @@
 require 'rspec-instrumentation-matcher/version'
 require 'active_support/notifications'
+require 'rspec/matchers'
 module RSpec
   module Instrumentation
     module Matcher
@@ -154,7 +155,6 @@ module RSpec
   end
 end
 
-require 'rspec/matchers'
 module RSpec::Matchers
   include RSpec::Instrumentation::Matcher
 end
