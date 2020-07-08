@@ -92,9 +92,9 @@ module RSpec
           self
         end
 
-        def with(expectation)
+        def with(expectation = nil, &blk)
           @with = true
-          @payload_expectation = expectation
+          @payload_expectation = blk || expectation
           self
         end
 
@@ -129,6 +129,10 @@ module RSpec
         end
 
         def with?
+          if @payload_expectation.respond_to?(:call)
+            @payload_expectation.call(@payload) and return true
+          end
+
           return true unless @with
           !@payload.nil? && delta_payload
         end
